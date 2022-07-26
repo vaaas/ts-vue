@@ -1,0 +1,10 @@
+{
+    "name": "tsx-vue",
+    "version": "1.0.0",
+    "dependencies": {
+        "vue": "latest"
+    },
+    "devDependencies": {
+        "@babel/types": "^7.18.9"
+    }
+}

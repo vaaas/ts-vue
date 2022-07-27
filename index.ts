@@ -1,7 +1,9 @@
 import { h as vh, VNode } from 'vue'
 
+/** All available HTML elements */
 type HTMLElements = 'div' | 'span' | 'p' | 'em' | 'strong' | 'input'
 
+/** A Vue component */
 type Component = {
     render(): VNode|string;
 
@@ -31,7 +33,9 @@ type Component = {
 }
 
 type DefaultProps<T extends HTMLElements> = {
+    /** a css class */
     class?: string,
+    /** element id, must be unique globally */
     id?: string,
 }
 
@@ -39,14 +43,14 @@ type On<T extends Record<string, any>> = {
     [key in keyof T as `on${Capitalize<string & key>}`]: (x: T[key]) => any
 }
 
-type Props<T extends object> =
+type Props<T extends Component> =
     DefaultProps<HTMLElements>
     &
     (T extends { props: infer U extends Record<string, any> } ? Partial<U> : {})
     &
     (T extends { emits: infer U extends Record<string, any> } ? Partial<On<U>> : {})
 
-type Slots<T extends object> =
+type Slots<T extends Component> =
     T extends { slots: infer U extends Record<string, Array<any>> }
     ? {[k in string & keyof U]: (...xs: U[k]) => VNode|string }
     : null
@@ -54,7 +58,7 @@ type Slots<T extends object> =
 /**
  * Helper type to calculate the `this` interface of a Vue component.
  */
-export type This<T extends object> =
+export type This<T extends Component> =
     (
         T extends { data: infer U extends object }
         ? U

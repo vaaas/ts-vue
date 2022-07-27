@@ -1,5 +1,5 @@
 {
-    "name": "tsx-vue",
+    "name": "ts-vue",
     "version": "1.0.0",
     "scripts": {
         "build": "tsc"

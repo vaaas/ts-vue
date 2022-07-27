@@ -60,8 +60,8 @@ type Slots<T extends Component> =
  */
 export type This<T extends Component> =
     (
-        T extends { data: infer U extends object }
-        ? U
+        T extends { data: infer U extends () => object }
+        ? ReturnType<U>
         : {}
     )
     &

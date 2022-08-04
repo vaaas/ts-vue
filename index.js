@@ -29,6 +29,6 @@ export function defineComponent(x) {
         data: x.data,
         computed: x.computed,
         watch: x.watch,
-        props: Object.keys(x)
+        props: x.props ? Object.keys(x.props) : [],
     };
 }

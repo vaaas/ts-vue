@@ -37,6 +37,8 @@ type DefaultProps<T extends HTMLElements> = {
     class?: string,
     /** element id, must be unique globally */
     id?: string,
+    innerHTML?: string,
+    key?: string | number,
 }
 
 type On<T extends Record<string, any>> = {

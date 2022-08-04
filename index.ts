@@ -12,7 +12,7 @@ type ElementsMap = {
     },
     img: {
         alt?: string,
-        src: string,
+        src?: string,
     },
 }
 

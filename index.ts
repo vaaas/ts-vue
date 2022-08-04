@@ -1,7 +1,19 @@
 import { h as vh, VNode } from 'vue'
 
+type ElementsMap = {
+    div: {},
+    span: {},
+    p: {},
+    em: {},
+    strong: {},
+    input: {},
+    button: {
+        type?: 'submit' | 'reset' | 'button',
+    },
+}
+
 /** All available HTML elements */
-type HTMLElements = 'div' | 'span' | 'p' | 'em' | 'strong' | 'input'
+type HTMLElements = keyof ElementsMap
 
 /** A Vue component */
 type Component = {
@@ -32,13 +44,14 @@ type Component = {
     props?: Record<string, any>;
 }
 
-type DefaultProps<T extends HTMLElements> = {
+type DefaultProps<T extends HTMLElements> = ElementsMap[T] & {
     /** a css class */
     class?: string,
     /** element id, must be unique globally */
     id?: string,
     innerHTML?: string,
     key?: string | number,
+    [K: `data-${string}`]: string
 }
 
 type On<T extends Record<string, any>> = {

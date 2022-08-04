@@ -10,6 +10,10 @@ type ElementsMap = {
     button: {
         type?: 'submit' | 'reset' | 'button',
     },
+    img: {
+        alt?: string,
+        src: string,
+    },
 }
 
 /** All available HTML elements */
@@ -101,6 +105,12 @@ export type This<T extends Component> =
     (
         T extends { emits: infer U extends object }
         ? {$emit: <K extends keyof U>(event: K, value: U[K]) => void }
+        : {}
+    )
+    &
+    (
+        T extends { props: infer U extends object }
+        ? U
         : {}
     )
 

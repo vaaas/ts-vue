@@ -71,7 +71,7 @@ type DefaultProps<T extends HTMLElements> = ElementsMap[T] & {
     innerHTML?: string,
     key?: string | number,
     ref?: string,
-    style?: CSSStyleDeclaration,
+    style?: Partial<CSSStyleDeclaration>,
     [K: `data-${string}`]: string,
 }
 

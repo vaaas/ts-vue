@@ -1,7 +1,9 @@
 import { h as vh, VNode } from 'vue'
 
 type ElementsMap = {
-    div: {},
+    div: {
+        role: 'tablist'
+    },
     span: {},
     p: {},
     em: {},
@@ -13,6 +15,17 @@ type ElementsMap = {
     img: {
         alt?: string,
         src?: string,
+    },
+    aside: {},
+    article: {},
+    main: {},
+    nav: {},
+    a: {
+        href: string,
+        role: 'tab',
+    },
+    section: {
+        role: 'tabpanel',
     },
 }
 

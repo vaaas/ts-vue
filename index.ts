@@ -2,7 +2,7 @@ import { h as vh, VNode } from 'vue'
 
 type ElementsMap = {
     div: {
-        role: 'tablist'
+        role?: 'tablist'
     },
     span: {},
     p: {},
@@ -22,10 +22,10 @@ type ElementsMap = {
     nav: {},
     a: {
         href: string,
-        role: 'tab',
+        role?: 'tab',
     },
     section: {
-        role: 'tabpanel',
+        role?: 'tabpanel',
     },
 }
 

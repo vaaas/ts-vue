@@ -52,13 +52,15 @@ type Component = {
 
     computed?: Record<string, () => any>;
 
-    watch?: Record<string, (ov: any, nv: any) => void>;
+    watch?: Record<string, (nv: any, ov: any) => void>;
 
     emits?: Record<string, any>;
 
     slots?: Record<string, Array<any>>;
 
     props?: Record<string, any>;
+
+    refs?: Record<string, any>;
 }
 
 type DefaultProps<T extends HTMLElements> = ElementsMap[T] & {
@@ -124,6 +126,12 @@ export type This<T extends Component> =
     (
         T extends { props: infer U extends object }
         ? U
+        : {}
+    )
+    &
+    (
+        T extends { refs: infer U extends Record<string, any> }
+        ? { $refs: U }
         : {}
     )
 

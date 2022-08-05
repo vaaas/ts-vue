@@ -70,7 +70,8 @@ type DefaultProps<T extends HTMLElements> = ElementsMap[T] & {
     id?: string,
     innerHTML?: string,
     key?: string | number,
-    [K: `data-${string}`]: string
+    ref?: string,
+    [K: `data-${string}`]: string,
 }
 
 type On<T extends Record<string, any>> = {

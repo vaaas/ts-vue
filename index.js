@@ -30,5 +30,6 @@ export function defineComponent(x) {
         computed: x.computed,
         watch: x.watch,
         props: x.props ? Object.keys(x.props) : [],
+        methods: x.methods,
     };
 }

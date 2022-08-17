@@ -61,6 +61,8 @@ type Component = {
     props?: Record<string, any>;
 
     refs?: Record<string, any>;
+
+    methods?: Record<string, Function>;
 }
 
 type DefaultProps<T extends HTMLElements> = ElementsMap[T] & {
@@ -184,5 +186,6 @@ export function defineComponent<T extends Component>(x: T) {
         computed: x.computed,
         watch: x.watch,
         props: x.props ? Object.keys(x.props) : [],
+        methods: x.methods,
     } as any as T
 }

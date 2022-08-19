@@ -11,6 +11,7 @@ type ElementsMap = {
     input: {},
     button: {
         type?: 'submit' | 'reset' | 'button',
+        onClick?: (event: MouseEvent) => void,
     },
     img: {
         alt?: string,

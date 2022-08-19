@@ -190,3 +190,5 @@ export function defineComponent<T extends Component>(x: T) {
         methods: x.methods,
     } as any as T
 }
+
+export type WatchFunction<T> = (value: T, oldValue: T) => void

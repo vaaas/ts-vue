@@ -192,3 +192,20 @@ export function defineComponent<T extends Component>(x: T) {
 }
 
 export type WatchFunction<T> = (value: T, oldValue: T) => void
+
+export type Watch<X extends Component> = Partial<
+    (
+        X extends { data: () => infer O extends Record<string, any> }
+        ? { [K in keyof O ]: WatchFunction<O[K]> }
+        : {}
+    )
+     & (
+        X extends { props: infer O extends Record<string, any> }
+        ? { [K in keyof O ]: WatchFunction<O[K]> }
+        : {}
+    ) & (
+        X extends { computed: infer O extends Record<string, () => any> }
+        ? { [K in keyof O ]: WatchFunction<ReturnType<O[K]>> }
+        : {}
+    )
+>

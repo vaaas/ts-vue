@@ -11,7 +11,6 @@ type ElementsMap = {
     input: {},
     button: {
         type?: 'submit' | 'reset' | 'button',
-        onClick?: (event: MouseEvent) => void,
     },
     img: {
         alt?: string,
@@ -75,6 +74,7 @@ type DefaultProps<T extends HTMLElements> = ElementsMap[T] & {
     key?: string | number,
     ref?: string,
     style?: Partial<CSSStyleDeclaration>,
+    onClick?: (event: MouseEvent) => void,
     [K: `data-${string}`]: string,
 }
 

@@ -1,5 +1,12 @@
 import { h as vh, VNode } from 'vue'
 
+function object_map<K extends string, A, B>(xs: Record<K, A>, f: (a: A) => B): Record<K, B> {
+    const ys: Partial<Record<K, B>> = {}
+    for (const [k, v] of Object.entries(xs))
+        ys[k as K] = f(v as A)
+    return ys as Record<K, B>
+}
+
 type ElementsMap = {
     div: {
         role?: 'tablist'
@@ -186,7 +193,9 @@ export function defineComponent<T extends Component>(x: T) {
         data: x.data,
         computed: x.computed,
         watch: x.watch,
-        props: x.props ? Object.keys(x.props) : [],
+        props: x.props
+            ? object_map(x.props, x => ({ default: x }))
+            : [],
         methods: x.methods,
     } as any as T
 }

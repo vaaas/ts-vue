@@ -1,4 +1,10 @@
 import { h as vh } from 'vue';
+function object_map(xs, f) {
+    const ys = {};
+    for (const [k, v] of Object.entries(xs))
+        ys[k] = f(v);
+    return ys;
+}
 /**
  * Turn a string or a Vue component into a virtual DOM node
  * for rendering in Vue.
@@ -29,7 +35,9 @@ export function defineComponent(x) {
         data: x.data,
         computed: x.computed,
         watch: x.watch,
-        props: x.props ? Object.keys(x.props) : [],
+        props: x.props
+            ? object_map(x.props, x => ({ default: x }))
+            : [],
         methods: x.methods,
     };
 }

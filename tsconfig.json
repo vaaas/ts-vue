@@ -4,5 +4,6 @@
         "lib": ["ESNext", "DOM"],
         "moduleResolution": "node",
         "strict": true,
+        "module": "CommonJS"
     }
 }

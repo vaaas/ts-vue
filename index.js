@@ -8,9 +8,13 @@ function object_map(xs, f) {
         ys[k] = f(v);
     return ys;
 }
-/**
- * Turn a string or a Vue component into a virtual DOM node
- * for rendering in Vue.
+/** Turn a string or a Vue component into a virtual DOM node for rendering in Vue.
+ *
+ * - `elem` — a vue component or a DOM element string
+ * - `props` — *optional* attributes to pass to the element or component
+ * - `slots` — *optional*
+ *    - for elements: an array of strings or other elements / components
+ *    - for components: a slots object
  */
 function h(elem, props, slots) {
     return (0, vue_1.h)(

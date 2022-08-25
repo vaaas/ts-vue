@@ -41,34 +41,58 @@ type HTMLElements = keyof ElementsMap
 
 /** A Vue component */
 type Component = {
+    /** render function for this vue component
+     *
+     * should either be a string, or a node returned by `h`
+     */
     render(): VNode|string;
 
+    /** Vue setup hook
+     * https://vuejs.org/api/composition-api-setup.html
+     */
     setup?: () => void;
+    /** Called when the instance is initialized. */
     beforeCreate?: () => void;
+    /** Called after the instance has finished processing all state-related options. */
     created?: () => void;
+    /** Called right before the component is to be mounted. */
     beforeMount?: () => void;
+    /** Called after the component has been mounted. */
     mounted?: () => void;
+    /** beforeUnmount */
     beforeUnmount?: () => void;
+    /** Called right before a component instance is to be unmounted. */
     unmounted?: () => void;
+    /** Called right before the component is about to update its DOM tree due to a reactive state change. */
     beforeUpdate?: () => void;
+    /** Called after the component has updated its DOM tree due to a reactive state change. */
     updated?: () => void;
+    /** Called after the component instance is inserted into the DOM as part of a tree cached by `<KeepAlive>`. */
     activated?: () => void;
+    /** Called after the component instance is removed from the DOM as part of a tree cached by `<KeepAlive>`. */
     deactivated?: () => void;
 
+    /** A function that returns the initial reactive state for the component instance.
+     *
+     * https://vuejs.org/api/options-state.html#data
+     */
     data?: () => Record<string, any>;
 
     computed?: Record<string, () => any>;
 
     watch?: Record<string, (nv: any, ov: any) => void>;
 
+    /** events emitted by this component */
     emits?: Record<string, any>;
 
     slots?: Record<string, Array<any>>;
 
     props?: Record<string, any>;
 
+    /** dom element refs tracked by this component */
     refs?: Record<string, any>;
 
+    /** public component methods */
     methods?: Record<string, Function>;
 }
 
@@ -113,13 +137,13 @@ export type This<T extends Component> =
     &
     (
         T extends { slots: infer U extends Record<string, any> }
-        ? {[K in string & keyof U]: U[K]}
+        ? { [K in string & keyof U]: U[K]}
         : {}
     )
     &
     (
         T extends { computed: infer U extends Record<string, () => any>}
-        ? {[K in string & keyof U]: ReturnType<U[K]> }
+        ? { [K in string & keyof U]: ReturnType<U[K]> }
         : {}
     )
     &
@@ -131,7 +155,16 @@ export type This<T extends Component> =
     &
     (
         T extends { emits: infer U extends object }
-        ? {$emit: <K extends keyof U>(event: K, value: U[K]) => void }
+        ? {
+            /** fires a vue event to this component's parent
+             *
+             * https://vuejs.org/guide/components/events.html
+             *
+             * - `event` — the event to fire
+             * - `value` — the value the event should have
+             */
+            $emit: <K extends keyof U>(event: K, value: U[K]) => void
+        }
         : {}
     )
     &
@@ -147,9 +180,13 @@ export type This<T extends Component> =
         : {}
     )
 
-/**
- * Turn a string or a Vue component into a virtual DOM node
- * for rendering in Vue.
+/** Turn a string or a Vue component into a virtual DOM node for rendering in Vue.
+ *
+ * - `elem` — a vue component or a DOM element string
+ * - `props` — *optional* attributes to pass to the element or component
+ * - `slots` — *optional*
+ *    - for elements: an array of strings or other elements / components
+ *    - for components: a slots object
  */
 export function h<T extends HTMLElements | Component>(
     elem: T,

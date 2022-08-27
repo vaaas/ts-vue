@@ -105,7 +105,16 @@ type DefaultProps<T extends HTMLElements> = ElementsMap[T] & {
     key?: string | number,
     ref?: string,
     style?: Partial<CSSStyleDeclaration>,
+
+    /** fired when the element is clicked */
     onClick?: (event: MouseEvent) => void,
+
+    /** The mousedown event is fired at an Element when a pointing device button is pressed while the pointer is inside the element.
+     *
+     * https://developer.mozilla.org/en-US/docs/Web/API/Element/mousedown_event
+     */
+    onMousedown?: (event: MouseEvent) => void,
+
     [K: `data-${string}`]: string,
 }
 

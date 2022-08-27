@@ -106,7 +106,10 @@ type DefaultProps<T extends HTMLElements> = ElementsMap[T] & {
     ref?: string,
     style?: Partial<CSSStyleDeclaration>,
 
-    /** fired when the element is clicked */
+    /** An element receives a click event when a pointing device button (such as a mouse's primary mouse button) is both pressed and released while the pointer is located inside the element.
+     *
+     * https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event
+     */
     onClick?: (event: MouseEvent) => void,
 
     /** The mousedown event is fired at an Element when a pointing device button is pressed while the pointer is inside the element.
@@ -114,6 +117,12 @@ type DefaultProps<T extends HTMLElements> = ElementsMap[T] & {
      * https://developer.mozilla.org/en-US/docs/Web/API/Element/mousedown_event
      */
     onMousedown?: (event: MouseEvent) => void,
+
+    /** The mousemove event is fired at an element when a pointing device (usually a mouse) is moved while the cursor's hotspot is inside it.
+     *
+     * https://developer.mozilla.org/en-US/docs/Web/API/Element/mousemove_event
+     */
+    onMousemove?: (event: MouseEvent) => void,
 
     [K: `data-${string}`]: string,
 }

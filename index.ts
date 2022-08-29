@@ -216,7 +216,7 @@ export function h<T extends HTMLElements | Component>(
     slots?: T extends HTMLElements
         ? Array<string|VNode>
         : T extends Component
-        ? [Slots<T>]
+        ? Slots<T>
         : null
 ): VNode {
     return vh(

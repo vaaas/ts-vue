@@ -85,7 +85,7 @@ type Component = {
     /** events emitted by this component */
     emits?: Record<string, any>;
 
-    slots?: Record<string, Array<any>>;
+    slots?: Record<string, VNode | string | Array<VNode> | Array<string>>;
 
     props?: Record<string, any>;
 

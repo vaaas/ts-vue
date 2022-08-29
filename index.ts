@@ -85,7 +85,7 @@ type Component = {
     /** events emitted by this component */
     emits?: Record<string, any>;
 
-    slots?: Record<string, VNode | string | Array<VNode> | Array<string>>;
+    slots?: Record<string, (...xs: any) => VNode | string | Array<VNode> | Array<string>>;
 
     props?: Record<string, any>;
 
@@ -139,8 +139,8 @@ type Props<T extends Component> =
     (T extends { emits: infer U extends Record<string, any> } ? Partial<On<U>> : {})
 
 type Slots<T extends Component> =
-    T extends { slots: infer U extends Record<string, Array<any>> }
-    ? {[k in string & keyof U]: (...xs: U[k]) => VNode|string }
+    T extends { slots: infer U extends Record<string, Function> }
+    ? U
     : null
 
 /**
@@ -154,8 +154,8 @@ export type This<T extends Component> =
     )
     &
     (
-        T extends { slots: infer U extends Record<string, any> }
-        ? { [K in string & keyof U]: U[K]}
+        T extends { slots: infer U extends Record<string, Function> }
+        ? { $slots: U }
         : {}
     )
     &

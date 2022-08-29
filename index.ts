@@ -140,7 +140,7 @@ type Props<T extends Component> =
 
 type Slots<T extends Component> =
     T extends { slots: infer U extends Record<string, Function> }
-    ? U
+    ? Partial<U>
     : null
 
 /**

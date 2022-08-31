@@ -34,6 +34,11 @@ type ElementsMap = {
     section: {
         role?: 'tabpanel',
     },
+    iframe: {
+        src: string,
+        allow?: string,
+        allowfullscreen?: boolean,
+    },
 }
 
 /** All available HTML elements */

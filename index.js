@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.defineComponent = exports.h = void 0;
+exports.vif = exports.defineComponent = exports.h = void 0;
 const vue_1 = require("vue");
 function object_map(xs, f) {
     const ys = {};
@@ -50,3 +50,5 @@ function defineComponent(x) {
     };
 }
 exports.defineComponent = defineComponent;
+const vif = (cond) => (f) => cond ? f() : '';
+exports.vif = vif;

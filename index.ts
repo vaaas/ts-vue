@@ -280,4 +280,6 @@ export type Watch<X extends Component> = Partial<
     )
 >
 
-export const vif = (cond: boolean) => (f: () => VNode) => cond ? f() : ''
+export const vif = (cond: boolean) => <T extends VNode|string>(x: T) => cond ? x : ''
+export const vif1 = (cond: boolean) => <T extends VNode|string>(f: () => T) => cond ? f() : ''
+export const vif2 = (cond: () => boolean) => <T extends VNode|string>(f: () => T) => cond() ? f() : ''

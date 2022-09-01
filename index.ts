@@ -38,6 +38,7 @@ type ElementsMap = {
         src: string,
         allow?: string,
         allowfullscreen?: boolean,
+        frameborder: number,
     },
 }
 

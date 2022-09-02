@@ -43,7 +43,7 @@ type ElementsMap = {
 }
 
 /** All available HTML elements */
-type HTMLElements = keyof ElementsMap
+type HTMLElement = keyof ElementsMap
 
 /** A Vue component */
 type Component = {
@@ -102,7 +102,7 @@ type Component = {
     methods?: Record<string, Function>;
 }
 
-type DefaultProps<T extends HTMLElements> = ElementsMap[T] & {
+type DefaultProps = {
     /** a css class */
     class?: string,
     /** element id, must be unique globally */
@@ -138,7 +138,7 @@ type On<T extends Record<string, any>> = {
 }
 
 type Props<T extends Component> =
-    DefaultProps<HTMLElements>
+    DefaultProps
     &
     (T extends { props: infer U extends Record<string, any> } ? Partial<U> : {})
     &
@@ -212,14 +212,14 @@ export type This<T extends Component> =
  *    - for elements: an array of strings or other elements / components
  *    - for components: a slots object
  */
-export function h<T extends HTMLElements | Component>(
+export function h<T extends HTMLElement | Component>(
     elem: T,
-    props?: T extends HTMLElements
-        ? DefaultProps<T>
+    props?: T extends HTMLElement
+        ? (DefaultProps & ElementsMap[T])
         : T extends Component
         ? Props<T>
         : never,
-    slots?: T extends HTMLElements
+    slots?: T extends HTMLElement
         ? Array<string|VNode>
         : T extends Component
         ? Slots<T>

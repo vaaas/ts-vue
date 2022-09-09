@@ -1,5 +1,7 @@
 import { h as vh, VNode } from 'vue'
 
+type RenderNode = string | VNode | Array<RenderNode>;
+
 function object_map<K extends string, A, B>(xs: Record<K, A>, f: (a: A) => B): Record<K, B> {
     const ys: Partial<Record<K, B>> = {}
     for (const [k, v] of Object.entries(xs))
@@ -51,7 +53,7 @@ type Component = {
      *
      * should either be a string, or a node returned by `h`
      */
-    render(): VNode|string;
+    render(): RenderNode;
 
     /** Vue setup hook
      * https://vuejs.org/api/composition-api-setup.html
@@ -91,7 +93,7 @@ type Component = {
     /** events emitted by this component */
     emits?: Record<string, any>;
 
-    slots?: Record<string, (...xs: any) => VNode | string | Array<VNode> | Array<string>>;
+    slots?: Record<string, (...xs: any) => RenderNode>;
 
     props?: Record<string, any>;
 
@@ -146,7 +148,11 @@ type Props<T extends Component> =
 
 type Slots<T extends Component> =
     T extends { slots: infer U extends Record<string, Function> }
-    ? Partial<U>
+    ? (
+        U extends { default: Function }
+        ? Partial<U> | U['default']
+        : Partial<U>
+    )
     : null
 
 /**
@@ -220,7 +226,7 @@ export function h<T extends HTMLElement | Component>(
         ? Props<T>
         : never,
     slots?: T extends HTMLElement
-        ? Array<string|VNode>
+        ? RenderNode
         : T extends Component
         ? Slots<T>
         : null

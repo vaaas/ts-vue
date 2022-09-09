@@ -1,6 +1,6 @@
 import { h as vh, VNode } from 'vue'
 
-type RenderNode = string | VNode | Array<RenderNode>;
+export type RenderNode = string | VNode | Array<RenderNode>;
 
 function object_map<K extends string, A, B>(xs: Record<K, A>, f: (a: A) => B): Record<K, B> {
     const ys: Partial<Record<K, B>> = {}

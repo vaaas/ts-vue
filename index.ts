@@ -104,7 +104,7 @@ type Component = {
 
 type DefaultProps = {
     /** a css class */
-    class?: string,
+    class?: string | Array<string> | Record<string, boolean>,
     /** element id, must be unique globally */
     id?: string,
     innerHTML?: string,
